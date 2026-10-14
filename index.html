@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Work Progress Tracker</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- Sidebar navigation -->
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">◆</span>
+          <span class="brand-text">Progress<br />Tracker</span>
+        </div>
+        <nav class="nav">
+          <button class="nav-btn active" data-view="dashboard">
+            <span class="nav-icon">▣</span> Dashboard
+          </button>
+          <button class="nav-btn" data-view="todos">
+            <span class="nav-icon">✓</span> To-Dos
+          </button>
+          <button class="nav-btn" data-view="journal">
+            <span class="nav-icon">✎</span> Journal
+          </button>
+        </nav>
+        <div class="sidebar-footer">
+          <span id="today-label"></span>
+        </div>
+      </aside>
+
+      <!-- Main content area -->
+      <main class="content">
+        <!-- Dashboard view -->
+        <section id="view-dashboard" class="view active">
+          <header class="view-header">
+            <h1>Dashboard</h1>
+            <p class="subtitle" id="dash-date"></p>
+          </header>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-num" id="stat-total">0</span>
+              <span class="stat-label">Total Tasks</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-num" id="stat-progress">0</span>
+              <span class="stat-label">In Progress</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-num" id="stat-done">0</span>
+              <span class="stat-label">Completed</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-num" id="stat-pct">0%</span>
+              <span class="stat-label">Done Rate</span>
+            </div>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+          </div>
+
+          <div class="dash-columns">
+            <div class="dash-panel">
+              <h2>Today's Open Tasks</h2>
+              <ul id="dash-tasks" class="mini-list"></ul>
+            </div>
+            <div class="dash-panel">
+              <h2>Today's Journal</h2>
+              <div id="dash-journal" class="dash-journal-preview"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- To-Dos view -->
+        <section id="view-todos" class="view">
+          <header class="view-header">
+            <h1>To-Dos</h1>
+            <p class="subtitle">Track what needs doing and how far along it is.</p>
+          </header>
+
+          <form id="todo-form" class="add-row">
+            <input id="todo-input" type="text" placeholder="Add a new task and press Enter…" autocomplete="off" />
+            <button type="submit" class="btn-primary">Add</button>
+          </form>
+
+          <div class="filter-row">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="todo">To Do</button>
+            <button class="filter-btn" data-filter="in-progress">In Progress</button>
+            <button class="filter-btn" data-filter="done">Done</button>
+          </div>
+
+          <ul id="todo-list" class="todo-list"></ul>
+          <p id="todo-empty" class="empty-note">No tasks yet. Add one above to get started.</p>
+        </section>
+
+        <!-- Journal view -->
+        <section id="view-journal" class="view">
+          <header class="view-header">
+            <h1>Daily Journal</h1>
+            <p class="subtitle">Log what you worked on each day.</p>
+          </header>
+
+          <div class="journal-layout">
+            <div class="journal-editor">
+              <div class="journal-date-row">
+                <label for="journal-date">Entry date</label>
+                <input id="journal-date" type="date" />
+              </div>
+              <textarea id="journal-text" placeholder="What did you work on today? Wins, blockers, notes…"></textarea>
+              <div class="journal-actions">
+                <span id="journal-saved" class="saved-note"></span>
+                <button id="journal-save" class="btn-primary">Save Entry</button>
+              </div>
+            </div>
+            <div class="journal-history">
+              <h2>Past Entries</h2>
+              <ul id="journal-list" class="journal-list"></ul>
+              <p id="journal-empty" class="empty-note">No journal entries yet.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
