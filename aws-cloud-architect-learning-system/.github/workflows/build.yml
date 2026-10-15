@@ -1,0 +1,36 @@
+name: Build desktop app
+
+# Builds the Windows .exe installer (and other platforms) with electron-builder.
+# Runs on pushes to tags like v1.0.0 and can be triggered manually.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build renderer and electron
+        run: npm run build
+
+      - name: Package Windows installer
+        run: npx electron-builder --win --publish never
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-installer
+          path: release/*.exe
+          if-no-files-found: error
